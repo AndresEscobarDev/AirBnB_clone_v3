@@ -15,12 +15,12 @@ from models.state import State
 def get_states(state_id):
     """ Retrieve an object into a valid JSON """
     if state_id != '':
-        state = storage.get("State", state_id)
+        state = storage.get(State, state_id)
         if state is None:
             abort(404)
         return jsonify(state.to_dict())
     else:
-        states = [state.to_dict() for state in storage.all("State").values()]
+        states = [state.to_dict() for state in storage.all(State).values()]
         return jsonify(states)
 
 
@@ -28,7 +28,7 @@ def get_states(state_id):
                  methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """ Deletes a state """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     state.delete()
@@ -52,7 +52,7 @@ def post_state():
                  methods=['PUT'], strict_slashes=False)
 def put_state(state_id):
     """ Update a state """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     if not request.get_json():
