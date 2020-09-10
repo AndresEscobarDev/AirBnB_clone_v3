@@ -1,15 +1,17 @@
 #!/usr/bin/python3
 """
-states.py
+States handler for all default RestFul API
 """
-
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from models import storage
 from models.state import State
 
-@app_views.route('/states', defaults={'state_id': ''}, methods=['GET'], strict_slashes=False)
-@app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/states', defaults={'state_id': ''},
+                 methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>',
+                 methods=['GET'], strict_slashes=False)
 def get_states(state_id):
     """ Retrieve an object into a valid JSON """
     if state_id != '':
@@ -21,7 +23,9 @@ def get_states(state_id):
         states = [state.to_dict() for state in storage.all("State").values()]
         return jsonify(states)
 
-@app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/states/<string:state_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """ Deletes a state """
     state = storage.get("State", state_id)
@@ -30,6 +34,7 @@ def delete_state(state_id):
     state.delete()
     storage.save()
     return make_response(jsonify({}), 200)
+
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
 def post_state():
@@ -42,7 +47,9 @@ def post_state():
     state.save()
     return make_response(jsonify(state.to_dict()), 201)
 
-@app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
+
+@app_views.route('/states/<string:state_id>',
+                 methods=['PUT'], strict_slashes=False)
 def put_state(state_id):
     """ Update a state """
     state = storage.get("State", state_id)
