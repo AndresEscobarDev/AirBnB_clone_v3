@@ -1,0 +1,6 @@
+nicolasquinchia - Nicolas Quinchia
+Documentation is needed and there is a duplicate of app.py in the wrong directory
+
+AndresEscobarDev -  Andres Escobar
+Great use of the methods implemented in the last task, and don't more loops that
+affect the time complexity, the structure is readable and the documentations is clear
